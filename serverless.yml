@@ -3,7 +3,7 @@ service: envatoSaleVerifier
 provider:
   name: aws
   runtime: nodejs10.x
-  profile: personal
+  # profile: personal
   iamRoleStatements:
       - Effect: "Allow"
         Action:
