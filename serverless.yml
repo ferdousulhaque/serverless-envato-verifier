@@ -1,0 +1,13 @@
+service: nlambda
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+functions:
+  hello:
+    handler: handler.verifier
+    events:
+      - http:
+          path: envato/verify
+          method: post
+          cors: true
