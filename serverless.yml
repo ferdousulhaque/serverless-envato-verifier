@@ -1,13 +1,76 @@
-service: nlambda
+service: envatoSaleVerifier
 
 provider:
   name: aws
   runtime: nodejs10.x
+  profile: personal
+  iamRoleStatements:
+      - Effect: "Allow"
+        Action:
+          - "logs:CreateLogGroup"
+        Resource: "*"
+      - Effect: "Allow"
+        Action:
+          - "logs:CreateLogStream"
+        Resource: "*"
+      - Effect: "Allow"
+        Action:
+          - "logs:PutLogEvents"
+        Resource: "*"
+      - Effect: "Allow"
+        Action:
+          - "ec2:CreateNetworkInterface"
+        Resource: "*"
+      - Effect: "Allow"
+        Action:
+          - "ec2:DescribeNetworkInterfaces"
+        Resource: "*"
+      - Effect: "Allow"
+        Action:
+          - "ec2:DeleteNetworkInterface"
+        Resource: "*"
+      - Effect: "Allow"
+        Action:
+          - "dynamodb:GetItem"
+        Resource: "*"
+      - Effect: "Allow"
+        Action:
+          - "dynamodb:PutItem"
+        Resource: "*"
+      - Effect: "Allow"
+        Action:
+          - "dynamodb:Scan"
+        Resource: "*"
+      - Effect: "Allow"
+        Action:
+          - "dynamodb:DeleteItem"
+        Resource: "*"
 functions:
-  hello:
+  verifier:
     handler: handler.verifier
     events:
       - http:
           path: envato/verify
           method: post
-          cors: true
+          # integration: lambda-proxy
+          # cors: true
+          cors:
+            origins:
+              - '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+  installer:
+    handler: handler.installer
+    events:
+      - http:
+          path: envato/installer
+          method: post
+          # integration: lambda-proxy
+          # cors: true
+          cors:
+            origins:
+              - '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
