@@ -9,7 +9,7 @@ module.exports = (event, context, callback) => {
         statusCode: 200,
         body: JSON.stringify({
           message: 'After Installation, Send the Database SQL for the file!',
-          input: event,
+          // input: event,
         }),
       };
     callback(null, response);
