@@ -24,16 +24,25 @@ module.exports = (event, context, callback) => {
                 }, null, 2),
               });
             }else{
-              callback(null, {
-                statusCode: 200,
-                body: JSON.stringify({
-                  message: JSON.parse(body)
-                }, null, 2),
-              });
+                /*Logging.create(body)
+                        .then((ticket) => {
+                            console.log('success')
+                        })
+                        .catch(err => (
+                            //ErrorHandler.handle(err)
+                            console.log(err)
+                        )); */
+
+                callback(null, {
+                    statusCode: 200,
+                    body: JSON.stringify({
+                    message: JSON.parse(body)
+                    }, null, 2),
+                });
             }
         });
       } catch (e) {
-        console.log('catch block ran')
+        console.log('Logs to Cloudwatch')
         console.log(e)
         callback(null, failure({
             status: false
